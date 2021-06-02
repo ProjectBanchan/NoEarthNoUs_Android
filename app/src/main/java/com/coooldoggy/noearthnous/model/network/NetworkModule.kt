@@ -2,6 +2,9 @@ package com.coooldoggy.noearthnous.model.network
 
 import com.coooldoggy.noearthnous.BASE_API_URL
 import com.coooldoggy.noearthnous.BuildConfig
+import com.coooldoggy.noearthnous.model.helper.UserApiHelper
+import com.coooldoggy.noearthnous.model.helper.UserApiImpl
+import com.coooldoggy.noearthnous.model.service.UserApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,6 +27,14 @@ object NetworkModule {
         .client(okHttpClient)
         .build()
 
+
+    @Provides
+    @Singleton
+    fun provideUserApiService(retrofit: Retrofit) = retrofit.create(UserApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideUserApiHelper(userApiImpl: UserApiImpl): UserApiHelper = userApiImpl
 
     @Singleton
     @Provides
